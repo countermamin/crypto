@@ -1,35 +1,63 @@
 import React, {useContext} from 'react';
-import {Box, Grid, IconButton, InputBase, useTheme} from "@mui/material";
+import {AppBar, Box, Grid, IconButton, InputBase, Toolbar, Typography, useTheme} from "@mui/material";
 import {ColorModeContext} from "../../theme";
-import {DarkMode, LightMode, NotificationsNone, Search} from "@mui/icons-material";
+import {DarkMode, LightMode, NotificationsNone, Search, MenuOutlined} from "@mui/icons-material";
 import { useStyles } from './styles';
+import FlexBetween from "../flex-between";
 
 
-const TopBarComponent = () => {
+const TopBarComponent = (props: any) => {
     const theme = useTheme();
     const colorMode: any = useContext(ColorModeContext);
     const classes = useStyles();
+    const {isOpen, setIsOpen} = props;
 
     return (
-        <Box className={classes.root}>
-            <Grid>Welcome, Orzu</Grid>
-            <Box display='flex'>
-                <Grid className={classes.iconBlock} >
-                    <IconButton onClick={colorMode.toggleColorMode} className={classes.themeIcon}>
-                        {theme.palette.mode === 'dark' ? (<DarkMode/>) : (<LightMode/>)}
-                    </IconButton>
-                    <IconButton>
-                        <NotificationsNone/>
-                    </IconButton>
-                </Grid>
-                <Grid className={classes.searchBlock}>
-                    <IconButton className={classes.searchIcon}>
-                        <Search/>
-                    </IconButton>
-                    <InputBase className={classes.searchInput} placeholder='Поиск' />
-                </Grid>
-            </Box>
-        </Box>
+        <AppBar position='static' className={classes.root}>
+            <Toolbar className={classes.toolbar}>
+                <FlexBetween>
+                    {isOpen
+                        ? <></>
+                        : <MenuOutlined className={classes.menuIcon} onClick={() => setIsOpen(!isOpen)}/>}
+                    <Typography variant='h3'>Welcome, Orzu</Typography>
+                </FlexBetween>
+                <Box display='flex'>
+                    <Grid className={classes.iconBlock} >
+                        <IconButton onClick={colorMode.toggleColorMode} className={classes.themeIcon}>
+                            {theme.palette.mode === 'dark' ? (<DarkMode/>) : (<LightMode/>)}
+                        </IconButton>
+                        <IconButton>
+                            <NotificationsNone/>
+                        </IconButton>
+                    </Grid>
+                    <Grid className={classes.searchBlock}>
+                        <IconButton className={classes.searchIcon}>
+                            <Search/>
+                        </IconButton>
+                        <InputBase className={classes.searchInput} placeholder='Поиск' />
+                    </Grid>
+                </Box>
+            </Toolbar>
+        </AppBar>
+        // <Box className={classes.root}>
+        //     <Grid>Welcome, Orzu</Grid>
+        //     <Box display='flex'>
+        //         <Grid className={classes.iconBlock} >
+        //             <IconButton onClick={colorMode.toggleColorMode} className={classes.themeIcon}>
+        //                 {theme.palette.mode === 'dark' ? (<DarkMode/>) : (<LightMode/>)}
+        //             </IconButton>
+        //             <IconButton>
+        //                 <NotificationsNone/>
+        //             </IconButton>
+        //         </Grid>
+        //         <Grid className={classes.searchBlock}>
+        //             <IconButton className={classes.searchIcon}>
+        //                 <Search/>
+        //             </IconButton>
+        //             <InputBase className={classes.searchInput} placeholder='Поиск' />
+        //         </Grid>
+        //     </Box>
+        // </Box>
     );
 };
 

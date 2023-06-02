@@ -3,7 +3,6 @@ import {useStyles} from "./styles";
 import {
     Box,
     Drawer,
-    Divider,
     IconButton,
     List,
     ListItem,
@@ -14,9 +13,8 @@ import {
     useTheme
 } from '@mui/material';
 import {
-    ChevronLeftOutlined,
-    ChevronRightOutlined,
-    LogoutOutlined
+    LogoutOutlined,
+    CloseOutlined
 } from '@mui/icons-material';
 import {useLocation, useNavigate} from "react-router-dom";
 import FlexBetween from "../flex-between";
@@ -39,7 +37,7 @@ const SidebarComponent = (props: any) => {
 
     const renderNavMenu = navMenu.map((el): JSX.Element => {
         return (
-            <ListItem key={el.id} >
+            <ListItem key={el.id}>
                 <ListItemButton onClick={() => navigate(`${el.path}`)} className={classes.navItem}>
                     <ListItemIcon>
                         {el.icon}
@@ -74,7 +72,7 @@ const SidebarComponent = (props: any) => {
                         <Box>
                             <FlexBetween>
                                 <Box className={classes.brand}>
-                                    <img src={Logo } alt="Logo"/>
+                                    <img src={Logo} alt="Logo"/>
                                     <Typography
                                         variant='h1'
                                         className={classes.brandTitle}
@@ -82,11 +80,11 @@ const SidebarComponent = (props: any) => {
                                         Demo
                                     </Typography>
                                 </Box>
-                                {!isNoneMobile && (
-                                    <IconButton onClick={() => setIsOpen(!isOpen)}>
-                                        <ChevronLeftOutlined/>
-                                    </IconButton>
-                                )}
+
+                                <IconButton sx={{mr: '8px'}} onClick={() => setIsOpen(!isOpen)}>
+                                    <CloseOutlined/>
+                                </IconButton>
+
                             </FlexBetween>
                         </Box>
                         <List className={classes.navList}>
