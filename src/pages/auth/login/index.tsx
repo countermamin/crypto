@@ -1,13 +1,16 @@
 import React from 'react';
-import {Button, TextField, Typography} from "@mui/material";
+import {TextField, Typography} from "@mui/material";
 import {IPropsLogin} from "../../../common/types/auth";
+import { useStyles } from '../styles';
+import AppButton from "../../../components/app-button";
 
 const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
     const {navigate, register, errors} = props;
+    const classes = useStyles()
 
     return (
         <>
-            <Typography variant="h2" textAlign='center'>Авторизация</Typography>
+            <Typography variant="h2" textAlign='center' sx={{fontSize: 32}}>Авторизация</Typography>
             <Typography variant="body1" marginBottom={3} textAlign='center'>Введите ваш логин и пароль</Typography>
             <TextField
                 error={!!errors.email}
@@ -28,9 +31,13 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                 helperText={errors.password ? `${errors.password.message}` : ''}
                 {...register('password')}
             />
-            <Button type='submit' sx={{marginTop: 2, width: '60%', marginBottom: 2,}} variant="contained">Войти</Button>
-            <Typography variant="body1" sx={{}}>У вас нет аккаунта? <span onClick={() => navigate('/register')}
-                className='insideText'>Регистрация</span></Typography>
+            <AppButton type='submit'  variant="contained">Войти</AppButton>
+            <Typography variant="body1">
+                У вас нет аккаунта?
+                <span onClick={() => navigate('/register')} className={classes.insideText}>
+                    Регистрация
+                </span>
+            </Typography>
         </>
     );
 };
