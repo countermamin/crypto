@@ -4,9 +4,10 @@ import {ColorModeContext} from "../../theme";
 import {DarkMode, LightMode, NotificationsNone, Search, MenuOutlined} from "@mui/icons-material";
 import { useStyles } from './styles';
 import FlexBetween from "../flex-between";
+import {ITopBarProps} from "../../common/types/top-bar";
 
 
-const TopBarComponent = (props: any) => {
+const TopBarComponent: React.FC<ITopBarProps> = (props: ITopBarProps): JSX.Element => {
     const theme = useTheme();
     const colorMode: any = useContext(ColorModeContext);
     const classes = useStyles();
@@ -39,25 +40,6 @@ const TopBarComponent = (props: any) => {
                 </Box>
             </Toolbar>
         </AppBar>
-        // <Box className={classes.root}>
-        //     <Grid>Welcome, Orzu</Grid>
-        //     <Box display='flex'>
-        //         <Grid className={classes.iconBlock} >
-        //             <IconButton onClick={colorMode.toggleColorMode} className={classes.themeIcon}>
-        //                 {theme.palette.mode === 'dark' ? (<DarkMode/>) : (<LightMode/>)}
-        //             </IconButton>
-        //             <IconButton>
-        //                 <NotificationsNone/>
-        //             </IconButton>
-        //         </Grid>
-        //         <Grid className={classes.searchBlock}>
-        //             <IconButton className={classes.searchIcon}>
-        //                 <Search/>
-        //             </IconButton>
-        //             <InputBase className={classes.searchInput} placeholder='Поиск' />
-        //         </Grid>
-        //     </Box>
-        // </Box>
     );
 };
 

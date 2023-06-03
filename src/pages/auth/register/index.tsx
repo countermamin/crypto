@@ -1,9 +1,13 @@
 import React from 'react';
-import {Button, TextField, Typography} from "@mui/material";
+import {TextField, Typography} from "@mui/material";
 import {IPropsRegister} from "../../../common/types/auth";
+import {useStyles} from "../styles";
+import AppButton from "../../../components/app-button";
 
 const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element => {
     const {register, errors, navigate} = props;
+    const classes = useStyles();
+
     return(
         <>
             <Typography variant="h2" textAlign='center'>Регистрация</Typography>
@@ -48,8 +52,13 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Elem
                 helperText={errors.confirmPassword ? `${errors.confirmPassword.message}` : ''}
                 {...register('confirmPassword')}
             />
-            <Button type='submit' sx={{marginTop: 2, width: '60%', marginBottom: 2,}} variant="contained">Регистрация</Button>
-            <Typography variant="body1" sx={{}}>У вас уже есть аккаунт? <span onClick={() => navigate('/login')} className='insideText'>Войти</span></Typography>
+            <AppButton type='submit' variant="contained">Регистрация</AppButton>
+            <Typography variant="body1">
+                У вас уже есть аккаунт?
+                <span onClick={() => navigate('/login')} className={classes.insideText}>
+                    Войти
+                </span>
+            </Typography>
         </>
     );
 };
