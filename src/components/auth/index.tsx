@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import LoginPage from "./login";
 import RegisterPage from "./register";
@@ -9,13 +9,10 @@ import {useAppDispatch} from "../../utils/hook";
 import {login} from "../../store/slice/auth";
 import {AppErrors} from "../../common/errors";
 import {useForm} from "react-hook-form";
+import {LoginSchema, RegisterSchema} from "../../utils/yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [repeatPassword, setRepeatPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [username, setUsername] = useState('');
     const location = useLocation();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -25,7 +22,10 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
             errors
         },
         handleSubmit,
-    } = useForm();
+    } = useForm({
+        mode: 'onSubmit',
+        resolver: yupResolver(location.pathname === '/login' ? LoginSchema : RegisterSchema)
+    });
 
     const handleSubmitForm = async (data: any) => {
         if (location.pathname === '/login') {
@@ -41,13 +41,13 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
                 return e;
             }
         } else if (location.pathname === '/register') {
-            if (password === repeatPassword) {
+            if (data.password === data.confirmPassword) {
                 try {
                     const userData = {
-                        email,
-                        password,
-                        firstName,
-                        username,
+                        email: data.email,
+                        password: data.password,
+                        firstName: data.firstName,
+                        username: data.username,
                     }
                     const newUser  = await instance.post('auth/register', userData);
                     await dispatch(login(newUser.data));
@@ -87,12 +87,9 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
                               />
                             : location.pathname === '/register'
                             ? <RegisterPage
-                                setEmail={setEmail}
-                                setPassword={setPassword}
-                                setRepeatPassword={setRepeatPassword}
-                                setFirstName={setFirstName}
-                                setUsername={setUsername}
                                 navigate={navigate}
+                                register={register}
+                                errors={errors}
                             />
                             : null
                     }

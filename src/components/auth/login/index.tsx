@@ -4,7 +4,6 @@ import {IPropsLogin} from "../../../common/types/auth";
 
 const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
     const {navigate, register, errors} = props;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     return (
         <>
@@ -17,13 +16,7 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                 label="Email" variant="outlined"
                 placeholder="Введите ваш email"
                 helperText={errors.email ? `${errors.email.message}` : ''}
-                {...register('email', {
-                    required: 'Обязательное поле',
-                    pattern: {
-                        value: emailRegex,
-                        message: 'Неверно указана почта',
-                    },
-                })}
+                {...register('email', )}
             />
             <TextField
                 error={!!errors.password}
@@ -33,10 +26,7 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                 label="Password" variant="outlined"
                 placeholder="Введите ваш пароль"
                 helperText={errors.password ? `${errors.password.message}` : ''}
-                {...register('password', {
-                    required: 'Обязательное поле',
-                    minLength: 6
-                })}
+                {...register('password')}
             />
             <Button type='submit' sx={{marginTop: 2, width: '60%', marginBottom: 2,}} variant="contained">Войти</Button>
             <Typography variant="body1" sx={{}}>У вас нет аккаунта? <span onClick={() => navigate('/register')}
