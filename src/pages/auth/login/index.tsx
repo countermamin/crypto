@@ -2,10 +2,10 @@ import React from 'react';
 import {TextField, Typography} from "@mui/material";
 import {IPropsLogin} from "../../../common/types/auth";
 import { useStyles } from '../styles';
-import AppButton from "../../../components/app-button";
+import AppLoadingButton from "../../../components/loading-button";
 
 const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
-    const {navigate, register, errors} = props;
+    const {navigate, register, loading, errors} = props;
     const classes = useStyles()
 
     return (
@@ -31,7 +31,7 @@ const LoginPage: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                 helperText={errors.password ? `${errors.password.message}` : ''}
                 {...register('password')}
             />
-            <AppButton type='submit'  variant="contained">Войти</AppButton>
+            <AppLoadingButton loading={loading} type='submit'  variant="contained">Войти</AppLoadingButton>
             <Typography variant="body1">
                 У вас нет аккаунта?
                 <span onClick={() => navigate('/register')} className={classes.insideText}>

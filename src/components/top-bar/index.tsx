@@ -12,6 +12,7 @@ const TopBarComponent: React.FC<ITopBarProps> = (props: ITopBarProps): JSX.Eleme
     const colorMode: any = useContext(ColorModeContext);
     const classes = useStyles();
     const {isOpen, setIsOpen} = props;
+    const firstName = sessionStorage.getItem('name');
 
     return (
         <AppBar position='static' className={classes.root}>
@@ -20,7 +21,7 @@ const TopBarComponent: React.FC<ITopBarProps> = (props: ITopBarProps): JSX.Eleme
                     {isOpen
                         ? <></>
                         : <MenuOutlined className={classes.menuIcon} onClick={() => setIsOpen(!isOpen)}/>}
-                    <Typography variant='h3'>Welcome, Orzu</Typography>
+                    <Typography variant='h3'>Welcome, {firstName}</Typography>
                 </FlexBetween>
                 <Box display='flex'>
                     <Grid className={classes.iconBlock} >
