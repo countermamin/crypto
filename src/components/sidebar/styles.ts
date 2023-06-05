@@ -3,7 +3,7 @@ import {tokens} from "../../theme";
 import {Theme} from "@mui/material";
 
 export const useStyles = makeStyles((theme: Theme) => {
-    const colors = tokens(theme.palette.mode)
+    const colors = tokens(theme.palette.mode);
     return (
         {
             navBlock: {
